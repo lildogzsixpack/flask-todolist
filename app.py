@@ -6,7 +6,7 @@ import sqlite3
 from datetime import timedelta
 
 app = Flask(__name__)
-app.secret_key = "8uiaz324L!OP"
+app.secret_key = "XXXXXXXXXXXX"
 
 def login_required(f):
     @wraps(f)
