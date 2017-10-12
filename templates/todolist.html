@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+    {% block title %}
+    Todo List App
+    {% endblock %}
+    {% block content %}
+    
+        {% include "navbar.html" %}
+    
+        <div class="container">
+            <!--<div class="jumbotron">-->
+            <!--<h1>Todo-List App</h1>-->
+            <!--<p>-->
+            <!--    Welcome to Todo-List app. You can organise your daily tasks with ease-->
+            <!--    and make the world a better <strong>place</strong>.-->
+            <!--</p>-->
+            <!--</div>-->
+            <a class="btn btn-primary btn-md" href="/add_task" style="margin-right: 15px">Add a New Task</a>
+            <div class="row">
+            </div>
+        </div>
+    {% endblock %}
+    {% block jsfiles %}
+    {{ super() }}
+    <script src="static/js/custom.js"></script>
+    {% endblock %}
