@@ -2,11 +2,12 @@ from flask import Flask, render_template, url_for, redirect, request, jsonify, g
 from hashlib import sha256
 from functools import wraps
 import re
+import os
 import sqlite3
 from datetime import timedelta
 
 app = Flask(__name__)
-app.secret_key = "XXXXXXXXXXXX"
+app.secret_key = os.environ.get('FLASK_KEY')
 
 def login_required(f):
     @wraps(f)
