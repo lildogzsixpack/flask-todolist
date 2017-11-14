@@ -1,3 +1,5 @@
+import logging
+from logging.handlers import RotatingFileHandler
 from flask import Flask, render_template, url_for, redirect, request, jsonify, g, session
 from hashlib import sha256
 from functools import wraps
@@ -22,9 +24,9 @@ def before_request():
     g.db = sqlite3.connect('db.sqlite3')
     # Uncomment below for dictionary cursor results. :)
     # g.db.row_factory = sqlite3.Row
-#gkino edited to fix session timeout
+
     session.permanent = True
-    app.permanent_session_lifetime = timedelta(minutes=60)
+    app.permanent_session_lifetime = timedelta(minutes=30)
     session.modified = True
 
 @app.route('/motivation', methods=['GET'])
@@ -33,10 +35,12 @@ def motivation():
 
 @app.route('/', methods=['GET'])
 def index():
+    
     if 'is_logged_in' in session:
         return render_template('todolist.html')
     else:
         return render_template('login.html')
+
 
 def validate_register_form():
     if len(request.form["username"]) < 3:
@@ -111,6 +115,7 @@ def login():
         result = cursor.fetchone()
         if result:
             if result[0] != sha256(given_password.encode()).hexdigest():
+                app.logger.error('Login error')
                 return jsonify({"success": False, "reason": "username or password is incorrect"})
             else:
                 session['is_logged_in'] = True
@@ -118,6 +123,7 @@ def login():
                 session['email'] = result[2]
                 return jsonify({"success": True})
         else:
+            app.logger.error('Login error')
             return jsonify({"success": False, "reason": "username or password is incorrect"})
         
         
@@ -177,6 +183,21 @@ def changepassword():
 @login_required
 def add_task():
     return render_template('add_task.html')
+
+@app.errorhandler(404)
+def page_not_found(error):
+    app.logger.error('Page not found: %s', (request.path))
+    return render_template('404.html'), 404
     
+@app.errorhandler(500)
+def internal_server_error(error):
+    app.logger.error('Internal Server Error: %s', (error))
+    return render_template('500.html'), 500
+
 if __name__ == '__main__':
+    formatter = logging.Formatter("[%(asctime)s] - %(levelname)s - %(message)s")
+    file_handler = RotatingFileHandler('error.log', maxBytes = 10000, backupCount = 1)
+    file_handler.setLevel(logging.ERROR)
+    file_handler.setFormatter(formatter)
+    app.logger.addHandler(file_handler)
     app.run(host='0.0.0.0', port=8080, debug=True)
