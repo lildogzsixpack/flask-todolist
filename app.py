@@ -115,7 +115,7 @@ def login():
         result = cursor.fetchone()
         if result:
             if result[0] != sha256(given_password.encode()).hexdigest():
-                app.logger.error('Login error')
+                app.logger.error('Login error - %s', (request.environ.get('HTTP_X_REAL_IP', request.remote_addr)))
                 return jsonify({"success": False, "reason": "username or password is incorrect"})
             else:
                 session['is_logged_in'] = True
@@ -123,7 +123,7 @@ def login():
                 session['email'] = result[2]
                 return jsonify({"success": True})
         else:
-            app.logger.error('Login error')
+            app.logger.error('Login error - %s', (request.environ.get('HTTP_X_REAL_IP', request.remote_addr)))
             return jsonify({"success": False, "reason": "username or password is incorrect"})
         
         
@@ -186,12 +186,12 @@ def add_task():
 
 @app.errorhandler(404)
 def page_not_found(error):
-    app.logger.error('Page not found: %s', (request.path))
+    app.logger.error('Page not found: %s - %s', (request.environ.get('HTTP_X_REAL_IP', request.remote_addr)), (request.path))
     return ('404 Page not Found')
     
 @app.errorhandler(500)
 def internal_server_error(error):
-    app.logger.error('Internal Server Error: %s', (error))
+    app.logger.error('Internal Server Error: %s - %s', (request.environ.get('HTTP_X_REAL_IP', request.remote_addr)), (error))
     return ('500 Internal Server Error')
 
 if __name__ == '__main__':
