@@ -187,12 +187,12 @@ def add_task():
 @app.errorhandler(404)
 def page_not_found(error):
     app.logger.error('Page not found: %s', (request.path))
-    return render_template('404.html'), 404
+    return ('404 Page not Found')
     
 @app.errorhandler(500)
 def internal_server_error(error):
     app.logger.error('Internal Server Error: %s', (error))
-    return render_template('500.html'), 500
+    return ('500 Internal Server Error')
 
 if __name__ == '__main__':
     formatter = logging.Formatter("[%(asctime)s] - %(levelname)s - %(message)s")
