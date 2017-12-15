@@ -8,7 +8,7 @@ import os
 import sqlite3
 from datetime import timedelta
 
-app = Flask(__name__)
+app = Flask(__name__, static_url_path='/static')
 app.secret_key = os.environ.get('FLASK_KEY')
 
 def login_required(f):
@@ -187,12 +187,12 @@ def add_task():
 @app.errorhandler(404)
 def page_not_found(error):
     app.logger.error('Page not found: %s - %s', (request.environ.get('HTTP_X_REAL_IP', request.remote_addr)), (request.path))
-    return render_template('404.html')
+    return render_template('404.html'), 404
     
 @app.errorhandler(500)
 def internal_server_error(error):
     app.logger.error('Internal Server Error: %s - %s', (request.environ.get('HTTP_X_REAL_IP', request.remote_addr)), (error))
-    return render_template('500.html')
+    return render_template('500.html'), 500
 
 if __name__ == '__main__':
     formatter = logging.Formatter("[%(asctime)s] - %(levelname)s - %(message)s")
