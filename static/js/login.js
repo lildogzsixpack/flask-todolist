@@ -1,7 +1,7 @@
 $(document).ready(function () {
     var register_param = window.location.hash;
     var statusBox = $("#status-box");
-    
+
     if (register_param === '#success') {
         statusBox.removeClass('alert alert-danger alert-dismissable fade in');
         statusBox.addClass('alert alert-success');
@@ -23,14 +23,14 @@ $("#loginForm").on('submit', function(e) {
         errorMessage("Please enter your Username and your Password");
         return;
     }
-   
+
    var request = $.ajax({
                     url: form.attr('action'),
                     method: form.attr('method'),
                     data: form.serialize(),
-                    datatype: "json" 
+                    datatype: "json"
                 });
-  
+
     request.done(function(response) {
         if (response['success']) {
             window.location.href = "/todolist";

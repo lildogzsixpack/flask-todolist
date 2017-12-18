@@ -6,5 +6,6 @@ function errorMessage(text) {
         $(this).parent().hide();
     });
     statusBox.append(text);
+    statusBox.show();
     statusBox.css('visibility', 'visible');
 }
