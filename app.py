@@ -177,12 +177,36 @@ def changepassword():
             return jsonify({"success": True})
     else:
         return render_template('changepassword.html')
-    
-    
-@app.route('/add_task', methods=['GET', 'POST'])
+
+def add_new_task():
+    task_data = {
+        "title": request.form['title'],
+        "column":1,
+        "user_id": session['user_id']
+        }
+    with g.db as con:
+        sql_query = "INSERT INTO tasks (title, column, user_id) VALUES (%s, %s, %s)", (title, 1, session['user_id'])
+        cursor = con.execute(sql_query, task_data)
+        con.commit()        
+
+@app.route('/add_task', methods=['POST'])
 @login_required
 def add_task():
-    return render_template('add_task.html')
+    if request.method == 'POST':
+        add_new_task()
+        return redirect(url_for('todolist'))
+    else:
+        return render_template('todolist.html')
+
+@app.route('/edit_task', methods=['GET', 'POST'])
+@login_required
+def edit_task():
+    pass
+
+@app.route('/delete_task', methods=['GET', 'DELETE'])
+@login_required
+def delete_task():
+    pass
 
 @app.errorhandler(404)
 def page_not_found(error):
