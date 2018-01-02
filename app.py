@@ -1,6 +1,6 @@
 import logging
 from logging.handlers import RotatingFileHandler
-from flask import Flask, render_template, url_for, redirect, request, jsonify, g, session
+from flask import Flask, render_template, url_for, redirect, request, jsonify, g, session, send_from_directory
 from hashlib import sha256
 from functools import wraps
 import re
@@ -210,6 +210,11 @@ def edit_task():
 @login_required
 def delete_task():
     pass
+
+@app.route('/favicon.ico')
+def favicon():
+    return send_from_directory(os.path.join(app.root_path, 'static', 'images'),
+                               'favicon.ico', mimetype='image/vnd.microsoft.icon')
 
 @app.errorhandler(404)
 def page_not_found(error):
