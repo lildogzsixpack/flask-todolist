@@ -35,9 +35,8 @@ def motivation():
 
 @app.route('/', methods=['GET'])
 def index():
-    
     if 'is_logged_in' in session:
-        return render_template('todolist.html')
+        return redirect(url_for('todolist'))
     else:
         return render_template('login.html')
 
@@ -144,7 +143,11 @@ def logout():
 @app.route('/todolist', methods=['GET'])
 @login_required
 def todolist():
-    return render_template('todolist.html')
+    # TODO bring the todos for the logged in client
+    # cursor = g.db.execute('SELECT * FROM tasks WHERE users.user_id = (?)', session['user_id'])
+    # cursor.fetchall()
+
+    return render_template('todolist.html', profile_name=session['name'])
     
 @app.route('/changepassword', methods=['GET', 'POST'])
 @login_required
@@ -176,7 +179,7 @@ def changepassword():
         else:
             return jsonify({"success": True})
     else:
-        return render_template('changepassword.html')
+        return render_template('changepassword.html', profile_name=session['name'])
 
 def add_new_task():
     task_data = {
@@ -187,7 +190,7 @@ def add_new_task():
     with g.db as con:
         sql_query = "INSERT INTO tasks (title, column, user_id) VALUES (%s, %s, %s)", (title, 1, session['user_id'])
         cursor = con.execute(sql_query, task_data)
-        con.commit()        
+        con.commit()
 
 @app.route('/add_task', methods=['POST'])
 @login_required
