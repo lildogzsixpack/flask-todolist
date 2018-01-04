@@ -11,7 +11,7 @@
    			table {
     			border-spacing: 10px;
 				}
-			tr { border: 1px solid grey; 
+			tr { border: 1px solid grey;
 				}
 			a.td {
 				float: right;
@@ -21,9 +21,9 @@
 				float: right;
 			}
     	</style>
-    
+
         {% include "navbar.html" %}
-    
+
         <div class="container">
             <!--<div class="jumbotron">-->
             <!--<h1>Todo-List App</h1>-->
@@ -41,16 +41,21 @@
             		<th class="col-md-3">WIP</th>
             		<th class="col-md-3">Done</th>
             	</tr>
+              {% for task in tasks %}
             	<tr>
-            		<td>Learn to code<a href="#" class="btn td">Edit</a><a href="#" class="btn td">Delete</a> 
-            			<select>
-							<option>To Do</option>
-							<option>WIP</option>
-							<option>Done</option>
-						</select></td>
+            		<td>
+
+                  {{ tasks }}<a href="#" class="btn td">Edit</a><a href="#" class="btn td">Delete</a>
+            	<select>
+							       <option>To Do</option>
+							       <option>WIP</option>
+							       <option>Done</option>
+						  </select>
+
+              </td>
     				<td></td>
     				<td></td>
-            	</tr>
+            	</tr>{% endfor %}
             	<tr>
             		<td></td>
     				<td></td>

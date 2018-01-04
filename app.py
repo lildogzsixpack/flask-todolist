@@ -59,12 +59,12 @@ def is_not_duplicate_info():
 
     lst = [request.form["username"], request.form["email"]]
     cursor = g.db.execute('SELECT username, email FROM users WHERE username = ? OR email = ?', lst)
-    
+
     response = cursor.fetchone()
-    
+
     if not response:
         return {"success": True}
-    
+
     if response[0] == request.form["username"]:
         return {"success": False, "reason": "Username is already taken"}
     # elif response[1] == request.form["name"]:
@@ -99,18 +99,18 @@ def register():
             insert_new_user()
             return jsonify(resp)
         else:
-            return jsonify(resp) 
-    else:    
+            return jsonify(resp)
+    else:
         return render_template('register.html')
-        
-        
+
+
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
         given_username = request.form['username'].strip()
         given_password = request.form['password'].strip()
-        
-        cursor = g.db.execute('SELECT password, name, email FROM users WHERE username = ?', [given_username])
+
+        cursor = g.db.execute('SELECT password, name, email, user_id FROM users WHERE username = ?', [given_username])
         result = cursor.fetchone()
         if result:
             if result[0] != sha256(given_password.encode()).hexdigest():
@@ -120,12 +120,13 @@ def login():
                 session['is_logged_in'] = True
                 session['name'] = result[1]
                 session['email'] = result[2]
+                session['user_id'] = result[3]
                 return jsonify({"success": True})
         else:
             app.logger.error('Login error - %s', (request.environ.get('HTTP_X_REAL_IP', request.remote_addr)))
             return jsonify({"success": False, "reason": "username or password is incorrect"})
-        
-        
+
+
     elif request.method == 'GET':
         if 'is_logged_in' in session:
             return render_template('todolist.html')
@@ -143,12 +144,17 @@ def logout():
 @app.route('/todolist', methods=['GET'])
 @login_required
 def todolist():
+    cursor = g.db.execute('SELECT task_id,title,column FROM tasks')
+    tasks = cursor.fetchall()
+    # inbox_list = {"title" : 'yolo title', "column" :0, "user_id" : session['user_id']}
+    # wip_list = {"title" : 'wip title', "column" :1, "user_id" : session['user_id']}
+    # done_list = {"title" : 'done title', "column" :2, "user_id" : session['user_id']}
     # TODO bring the todos for the logged in client
     # cursor = g.db.execute('SELECT * FROM tasks WHERE users.user_id = (?)', session['user_id'])
     # cursor.fetchall()
 
-    return render_template('todolist.html', profile_name=session['name'])
-    
+    return render_template('todolist.html', profile_name=session['name'], tasks=tasks)
+
 @app.route('/changepassword', methods=['GET', 'POST'])
 @login_required
 def changepassword():
@@ -156,21 +162,21 @@ def changepassword():
         password = request.form['password'].strip()
         new_password = request.form['newpassword'].strip()
         new_password_repeat = request.form['repeatnewpassword'].strip()
-        
+
         if len(new_password) < 8:
             return jsonify({"success": False, "reason": "Password must be at least 8 characters"})
         elif password == new_password:
             return jsonify({"success": False, "reason": "Your old password and your new password must be different"})
         elif new_password != new_password_repeat:
             return jsonify({"success": False, "reason": "New password does not match"})
-        
+
         cursor = g.db.execute('SELECT password FROM users WHERE email = (?)', [session['email']])
         row = cursor.fetchone()
         if not row:
             return jsonify({"success": False, "reason": "This user does not exist"})
         if row[0] != sha256(password.encode()).hexdigest():
             return jsonify({"success": False, "reason": "Current password does not match"})
-        
+
         new_password = sha256(new_password.encode()).hexdigest()
         cursor = g.db.execute('UPDATE users SET password = (?) WHERE email = (?)', [new_password, session['email']])
         g.db.commit()
@@ -220,7 +226,7 @@ def favicon():
 def page_not_found(error):
     app.logger.error('Page not found: %s - %s', (request.environ.get('HTTP_X_REAL_IP', request.remote_addr)), (request.path))
     return render_template('404.html'), 404
-    
+
 @app.errorhandler(500)
 def internal_server_error(error):
     app.logger.error('Internal Server Error: %s - %s', (request.environ.get('HTTP_X_REAL_IP', request.remote_addr)), (error))
