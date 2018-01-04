@@ -44,7 +44,7 @@ table, th, td {
         {% for task in tasks %}
         <tr>
           <td>
-            {{ tasks }}<a href="#" class="btn td">Edit</a><a href="#" class="btn td">Delete</a>
+            {{ task[1] }}<a href="#" class="btn td">Edit</a><a href="#" class="btn td">Delete</a>
             <select>
               <option>To Do</option>
               <option>WIP</option>
@@ -55,15 +55,6 @@ table, th, td {
           <td></td>
         </tr>
         {% endfor %}
-        <tr>
-          <td></td>
-          <td></td>
-          <td>Be Lazy<a href="#" class="btn td">Edit</a><a href="#" class="btn td">Delete</a><select>
-            <option>To Do</option>
-            <option>WIP</option>
-            <option>Done</option>
-          </select></td>
-        </tr>
       </table>
       <div class="row">
       </div>

@@ -144,14 +144,11 @@ def logout():
 @app.route('/todolist', methods=['GET'])
 @login_required
 def todolist():
-    cursor = g.db.execute('SELECT task_id,title,column FROM tasks')
-    tasks = cursor.fetchall()
-    # inbox_list = {"title" : 'yolo title', "column" :0, "user_id" : session['user_id']}
-    # wip_list = {"title" : 'wip title', "column" :1, "user_id" : session['user_id']}
-    # done_list = {"title" : 'done title', "column" :2, "user_id" : session['user_id']}
+    # cursor = g.db.execute('SELECT task_id,title,column FROM tasks')
+    # tasks = cursor.fetchall()
     # TODO bring the todos for the logged in client
-    # cursor = g.db.execute('SELECT * FROM tasks WHERE users.user_id = (?)', session['user_id'])
-    # cursor.fetchall()
+    cursor = g.db.execute('SELECT * FROM tasks INNER JOIN users on users.user_id = (?)', [session['user_id']])
+    tasks = cursor.fetchall()
 
     return render_template('todolist.html', profile_name=session['name'], tasks=tasks)
 
