@@ -3,62 +3,57 @@
 Todo List App
 {% endblock %}
 {% block content %}
-{{ super() }}
-<style>
-table, th, td {
-  border: 1px ;
-  padding: 5px; }
-  table {
-    border-spacing: 10px;
-  }
-  tr { border: 1px solid grey;
-  }
-  a.td {
-    float: right;
-    margin-right: 10px ;
-  }
-  select{
-    float: right;
-  }
-  </style>
+{% include "navbar.html" %}
 
-  {% include "navbar.html" %}
-
-  <div class="container">
-    <!--<div class="jumbotron">-->
-    <!--<h1>Todo-List App</h1>-->
-    <!--<p>-->
-    <!--    Welcome to Todo-List app. You can organise your daily tasks with ease-->
-    <!--    and make the world a better <strong>place</strong>.-->
-    <!--</p>-->
-    <!--</div>-->
-    <form method="POST" action="/add_task" id="taskForm">
-      <input type="text" name="title" id='title' class="form-control input-sm chat-input" required="required" placeholder="Describe your new task"></form>
-      <button type="submit" class="btn btn-primary btn-md col-md-offset-5" style="margin-right: 15px">Add a New Task</button></form></div></br>
-      <table class="well col-md-offset-1" style="width: 85%">
-        <tr>
-          <th class="col-md-3">To Do</th>
-          <th class="col-md-3">WIP</th>
-          <th class="col-md-3">Done</th>
-        </tr>
-        {% for task in tasks %}
-        <tr>
-          <td>
-            {{ task[1] }}<a href="#" class="btn td">Edit</a><a href="#" class="btn td">Delete</a>
-            <select>
-              <option>To Do</option>
-              <option>WIP</option>
-              <option>Done</option>
-            </select>
-          </td>
-          <td></td>
-          <td></td>
-        </tr>
-        {% endfor %}
-      </table>
-      <div class="row">
-      </div>
+<div class="container">
+  <form method="POST" action="/add_task" id="taskForm">
+    <input type="text" name="title" id='title' class="form-control input-sm chat-input" required="required" placeholder="Describe your new task"></form>
+    <button type="submit" class="btn btn-primary btn-md col-md-offset-5">Add a New Task</button>
+  </form>
+</div>
+</br>
+<div class="container">
+  <div class="container well col-md-4">
+    <h4>To Do</h4></br>
+    <div class="container">
+      {% for task in inbox %}
+      {{ task[1] }}<a href="#" class="btn td">Edit</a><a href="#" class="btn td">Delete</a>
+      <select>
+        <option>To Do</option>
+        <option>WIP</option>
+        <option>Done</option>
+      </select></br>
+      {% endfor %}
     </div>
+  </div>
+  <div class="container well col-md-4">
+    <h4>WIP</h4></br>
+    <div class="container">
+      {% for task in wip %}
+      {{ task[1] }}<a href="#" class="btn td">Edit</a><a href="#" class="btn td">Delete</a>
+      <select>
+        <option>To Do</option>
+        <option>WIP</option>
+        <option>Done</option>
+      </select></br>
+      {% endfor %}
+    </div>
+  </div>
+  <div class="container well col-md-4">
+    <h4>Done</h4></br>
+    <div class="container">
+      {% for task in done %}
+      {{ task[1] }}<a href="#" class="btn td">Edit</a><a href="#" class="btn td">Delete</a>
+      <select>
+        <option>To Do</option>
+        <option>WIP</option>
+        <option>Done</option>
+      </select></br>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
     {% endblock %}
     {% block jsfiles %}
     {{ super() }}
