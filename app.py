@@ -144,10 +144,20 @@ def logout():
 @app.route('/todolist', methods=['GET'])
 @login_required
 def todolist():
+    inbox = []
+    wip = []
+    done = []
     cursor = g.db.execute('SELECT * FROM tasks where user_id = (?)', [session['user_id']])
     tasks = cursor.fetchall()
+    for task in tasks:
+        if task[2]=="0":
+            inbox.append(task)
+        elif task[2]=="1":
+            wip.append(task)
+        elif task[2]=="2":
+            done.append(task)
 
-    return render_template('todolist.html', profile_name=session['name'], tasks=tasks)
+    return render_template('todolist.html', profile_name=session['name'], inbox=inbox, wip=wip, done=done)
 
 @app.route('/changepassword', methods=['GET', 'POST'])
 @login_required
