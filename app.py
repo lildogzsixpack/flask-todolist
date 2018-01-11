@@ -157,7 +157,7 @@ def todolist():
         elif task[2]=="2":
             done.append(task)
 
-    return render_template('todolist.html', profile_name=session['name'], inbox=inbox, wip=wip, done=done)
+    return render_template('todolist.html', profile_name=session['name'],inbox=inbox, wip=wip, done=done)
 
 @app.route('/changepassword', methods=['GET', 'POST'])
 @login_required
@@ -209,10 +209,12 @@ def add_task():
 def edit_task():
     pass
 
-@app.route('/delete_task', methods=['GET', 'DELETE'])
+@app.route('/delete_task', methods=['POST'])
 @login_required
 def delete_task():
-    pass
+    cursor = g.db.execute('DELETE FROM tasks WHERE task_id = (?)', [request.form["task_to_delete"]])
+    g.db.commit()
+    return redirect(url_for('todolist', profile_name=session['name']))
 
 @app.route('/favicon.ico')
 def favicon():
