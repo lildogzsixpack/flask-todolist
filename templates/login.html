@@ -1,45 +1,35 @@
-{% extends "base.html" %}
-{% block head %}
-{{ super() }}
-<link rel="stylesheet" href="/static/css/basicforms.css" />
-{% endblock %}
-{% block title %}
-Login
-{% endblock %}
-{% block content %}
+{% extends "base.html" %} {% block head %} {{ super() }}
+<link rel="stylesheet" href="/static/css/basicforms.css" /> {% endblock %} {% block title %} Login {% endblock %} {% block content %}
 <div class="jumbotron">
-  <h1>Todo-List App</h1>
-  <p>
-    Welcome to Todo-List app. You can organise your daily tasks with ease
-    and make the world a better <strong>place</strong>.
-  </p>
+    <h1>Todo-List App</h1>
+    <p>
+        Welcome to Todo-List app. You can organise your daily tasks with ease and make the world a better <strong>place</strong>.
+    </p>
 </div>
 <div class="container">
-  <div class="row">
-    <div class="col-md-offset-8 col-md-3" id="status-box">
-      alert box
-    </div>
-    <div class="col-md-offset-8 col-md-3">
-      <div class="basic-form">
-        <h4>Welcome</h4>
-        <form method="POST" action="/login" id="loginForm">
-          <input type="text" name="username" id="userName" class="form-control input-sm chat-input" placeholder="username" />
-        </br>
-        <input type="password" name="password" id="userPassword" class="form-control input-sm chat-input" placeholder="password" />
-      </br>
-      <div class="wrapper">
-        <span class="group-btn">
+    <div class="row">
+        <div class="col-md-offset-8 col-md-3" id="status-box">
+            alert box
+        </div>
+        <div class="col-md-offset-8 col-md-3">
+            <div class="basic-form">
+                <h4>Welcome</h4>
+                <form method="POST" action="/login" id="loginForm">
+                    <input type="text" name="username" id="userName" class="form-control input-sm chat-input" placeholder="username" />
+                    </br>
+                    <input type="password" name="password" id="userPassword" class="form-control input-sm chat-input" placeholder="password" />
+                    </br>
+                    <div class="wrapper">
+                        <span class="group-btn">
           <a class="btn btn-primary btn-md" href="/register" style="margin-right: 15px">register</a>
           <button type="submit" class="btn btn-primary btn-md" >login <i class="fa fa-sign-in"></i></button>
         </span>
-      </div>
-    </form>
-  </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>
-</div>
-</div>
-{% endblock %}
-{% block jsfiles %}
-{{ super() }}
+{% endblock %} {% block jsfiles %} {{ super() }}
 <script src="/static/js/login.js"></script>
 {% endblock %}

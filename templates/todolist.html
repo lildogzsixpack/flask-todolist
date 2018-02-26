@@ -1,93 +1,84 @@
-{% extends "base.html" %}
-{% block title %}
-Todo List App
-{% endblock %}
-{% block content %}
-{% include "navbar.html" %}
-{{ super() }}
+{% extends "base.html" %} {% block title %} Todo List App {% endblock %} {% block content %} {% include "navbar.html" %} {{ super() }}
 <style>
-
-.form-tasks {
-  display: inline-block;
-}
+    .form-tasks {
+        display: inline-block;
+    }
 </style>
 
 <div class="container">
-  <form action="{{ url_for('add_task') }}" method="POST" id="addTask" >
-    <input type="text" name="title" class="form-control input-sm chat-input" placeholder="Describe your new task" required></br>
-    <input type="submit" id="addBtn" value="Add a New Task" class="btn btn-primary btn-md col-md-offset-5">
-  </form>
+    <form action="{{ url_for('add_task') }}" method="POST" id="addTask">
+        <input type="text" name="title" class="form-control input-sm chat-input" placeholder="Describe your new task" required></br>
+        <input type="submit" id="addBtn" value="Add a New Task" class="btn btn-primary btn-md col-md-offset-5">
+    </form>
 </div>
 </br>
 <div class="container">
-  <div class="container well col-md-4">
-    <h4>To Do</h4></br>
-    <div class="container">
-      {% for task in inbox %}
-      <form action="{{ url_for('edit_task') }}" method="POST" class="form-tasks">
-        {{ task[1] }}&emsp;
-        <input type="submit" value="Edit" class="btn td" name="edit_task">
-        <input type="hidden" value="{{ task[0] }}" name="task_to_delete">
-      </form>
-      <form action="{{ url_for('delete_task') }}" method="POST" class="form-tasks">
-        <input type="submit" value="Delete" class="btn td" name="delete_task">
-        <input type="hidden" value="{{ task[0] }}" name="task_to_delete">
-      </form>
-      <select>
+    <div class="container well col-md-4">
+        <h4>To Do</h4></br>
+        <div class="container">
+            {% for task in inbox %}
+            <form action="{{ url_for('edit_task') }}" method="POST" class="form-tasks">
+                {{ task[1] }}&emsp;
+                <input type="submit" value="Edit" class="btn td" name="edit_task">
+                <input type="hidden" value="{{ task[0] }}" name="task_to_delete">
+            </form>
+            <form action="{{ url_for('delete_task') }}" method="POST" class="form-tasks">
+                <input type="submit" value="Delete" class="btn td" name="delete_task">
+                <input type="hidden" value="{{ task[0] }}" name="task_to_delete">
+            </form>
+            <select>
         <option>To Do</option>
         <option>WIP</option>
         <option>Done</option>
       </select></br>
-      {% endfor %}
+            {% endfor %}
+        </div>
     </div>
-  </div>
-  <div class="container well col-md-4">
-    <h4>WIP</h4></br>
-    <div class="container">
-      {% for task in wip %}
-      <form action="{{ url_for('edit_task') }}" method="POST" class="form-tasks">
-        {{ task[1] }}
-        <input type="submit" value="Edit" class="btn td" name="edit_task">
-        <input type="hidden" value="{{ task[0] }}" name="task_to_delete">
-      </form>
-      <form action="{{ url_for('delete_task') }}" method="POST" class="form-tasks">
-        <input type="submit" value="Delete" class="btn td" name="delete_task">
-        <input type="hidden" value="{{ task[0] }}" name="task_to_delete">
-      </form>
-      <select>
+    <div class="container well col-md-4">
+        <h4>WIP</h4></br>
+        <div class="container">
+            {% for task in wip %}
+            <form action="{{ url_for('edit_task') }}" method="POST" class="form-tasks">
+                {{ task[1] }}
+                <input type="submit" value="Edit" class="btn td" name="edit_task">
+                <input type="hidden" value="{{ task[0] }}" name="task_to_delete">
+            </form>
+            <form action="{{ url_for('delete_task') }}" method="POST" class="form-tasks">
+                <input type="submit" value="Delete" class="btn td" name="delete_task">
+                <input type="hidden" value="{{ task[0] }}" name="task_to_delete">
+            </form>
+            <select>
         <option>To Do</option>
         <option>WIP</option>
         <option>Done</option>
       </select></br>
-      {% endfor %}
+            {% endfor %}
+        </div>
     </div>
-  </div>
-  <div class="container well col-md-4">
-    <h4>Done</h4></br>
-    <div class="container">
-      {% for task in done %}
-      <form action="{{ url_for('edit_task') }}" method="POST" class="form-tasks">
-        {{ task[1] }}
-        <input type="submit" value="Edit" class="btn td" name="edit_task">
-        <input type="hidden" value="{{ task[0] }}" name="task_to_delete">
-      </form>
-      <form action="{{ url_for('delete_task') }}" method="POST" class="form-tasks">
-        <input type="submit" value="Delete" class="btn td" name="delete_task">
-        <input type="hidden" value="{{ task[0] }}" name="task_to_delete">
-      </form>
-      <select>
+    <div class="container well col-md-4">
+        <h4>Done</h4></br>
+        <div class="container">
+            {% for task in done %}
+            <form action="{{ url_for('edit_task') }}" method="POST" class="form-tasks">
+                {{ task[1] }}
+                <input type="submit" value="Edit" class="btn td" name="edit_task">
+                <input type="hidden" value="{{ task[0] }}" name="task_to_delete">
+            </form>
+            <form action="{{ url_for('delete_task') }}" method="POST" class="form-tasks">
+                <input type="submit" value="Delete" class="btn td" name="delete_task">
+                <input type="hidden" value="{{ task[0] }}" name="task_to_delete">
+            </form>
+            <select>
         <option>To Do</option>
         <option>WIP</option>
         <option>Done</option>
       </select></br>
-      {% endfor %}
+            {% endfor %}
+        </div>
     </div>
-  </div>
 </div>
 
-    {% endblock %}
-    {% block jsfiles %}
-    {{ super() }}
-    <!-- <script src="/static/js/todolist.js"></script> -->
-    <script src="/static/js/custom.js"></script>
-    {% endblock %}
+{% endblock %} {% block jsfiles %} {{ super() }}
+<!-- <script src="/static/js/todolist.js"></script> -->
+<script src="/static/js/custom.js"></script>
+{% endblock %}
