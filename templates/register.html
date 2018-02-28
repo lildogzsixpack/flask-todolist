@@ -6,33 +6,31 @@
         Welcome to Todo-List app. You can organise your daily tasks with ease and make the world a better <strong>place</strong>.
     </p>
 </div>
-<div class="container">
+<div class="container col-lg-offset-5 col-lg-2 col-md-offset-4 col-md-3 col-sm-offset-3 col-sm-4 col-xs-offset-3 col-xs-7">
     <div class="row">
-        <div class="col-md-offset-8 col-md-3" id="status-box">
+        <div id="status-box">
             alert box
         </div>
-        <div class="col-md-offset-8 col-md-3">
-            <div class="basic-form">
-                <h4>Register Form</h4>
-                <form method="POST" action="/register" name="registerForm" id="registerForm">
-                    <input type="text" name="username" id="userName" class="form-control input-sm chat-input" required="required" placeholder="username" />
-                    <br/>
-                    <input type="password" name="password" id="password" class="form-control input-sm chat-input" required="required" placeholder="password" />
-                    <br/>
-                    <input type="password" name="passwordrepeat" id="passwordrepeat" class="form-control input-sm chat-input" required="required" placeholder="repeat password" />
-                    <br/>
-                    <input type="text" name="name" id="name" class="form-control input-sm chat-input" required="required" placeholder="name" />
-                    <br/>
-                    <input type="email" name="email" id="email" class="form-control input-sm chat-input" required="required" placeholder="myemail@company.com" />
-                    <br/>
-                    <div class="wrapper">
-                        <span class="group-btn">
-                        <button type="button" class="btn btn-primary btn-md" onclick="parent.location='/'" style="margin-right: 20px"> back </button>
-                        <button type="submit" class="btn btn-primary btn-md">register <i class="fa fa-sign-in"></i></button>
-                    </span>
-                    </div>
-                </form>
-            </div>
+        <div class="basic-form">
+            <h4>Register Form</h4>
+            <form method="POST" action="/register" name="registerForm" id="registerForm">
+                <input type="text" name="username" id="userName" class="form-control input-sm chat-input" required="required" placeholder="username" />
+                <br/>
+                <input type="password" name="password" id="password" class="form-control input-sm chat-input" required="required" placeholder="password" />
+                <br/>
+                <input type="password" name="passwordrepeat" id="passwordrepeat" class="form-control input-sm chat-input" required="required" placeholder="repeat password" />
+                <br/>
+                <input type="text" name="name" id="name" class="form-control input-sm chat-input" required="required" placeholder="name" />
+                <br/>
+                <input type="email" name="email" id="email" class="form-control input-sm chat-input" required="required" placeholder="myemail@company.com" />
+                <br/>
+                <div class="wrapper">
+                    <span class="group-btn">
+                    <button type="button" class="btn btn-primary btn-md" onclick="parent.location='/'" style="margin-right: 20px"> back </button>
+                    <button type="submit" class="btn btn-primary btn-md">register <i class="fa fa-sign-in"></i></button>
+                </span>
+                </div>
+            </form>
         </div>
     </div>
 </div>
