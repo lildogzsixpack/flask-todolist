@@ -1,3 +1,4 @@
+//getstarted register and sign in button toggles
 $( document ).ready( function() {
     $( "#getstarted" ).click( function() {
         $( "#registerForm" ).show( 'slow' , 'swing');
@@ -26,8 +27,17 @@ $( document ).ready( function() {
         $( "#registerForm" ).hide( 'slow' , 'swing');
     });
 });
-
-
+//about and contact nav buttons
+$("#aboutButton").click(function() {
+    $('html, body').animate({
+        scrollTop: $("#aboutInfo").offset().top
+    }, 800);
+});
+$("#contactButton").click(function() {
+    $('html, body').animate({
+        scrollTop: $("#contactInfo").offset().top
+    }, 800);
+});
 
 // register js
 $('#registerForm').on('submit', function (e) {
