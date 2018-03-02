@@ -15,16 +15,15 @@
               </button>
                 <a class="navbar-brand" href="/">Todo-List</a>
             </div>
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <!-- <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1"> -->
                 <ul class="nav navbar-nav">
-                    <li><a href="#">About</a></li>
-                    <li><a href="#">Contact</a></li>
+                    <li><a href="">About</a></li>
+                    <li><a href="">Contact</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="#" id="upperRegister">Register <i class="fas fa-user-plus"></i></a></li>
                     <li><a href="#" id="upperLogin">Sign In <i class="fas fa-user"></i></a></li>
                 </ul>
-            </div>
+            <!-- </div> -->
         </div>
     </nav>
     <div class="container">
@@ -45,6 +44,7 @@
                             </div>
                             <div class="basic-form">
                                 <form method="POST" action="/register" name="registerForm" id="registerForm">
+                                    <h3>Fill this form to create a new account</h3>
                                     <input type="text" name="username" id="userName" class="form-control input-sm chat-input" required="required" placeholder="username" />
                                     <br/>
                                     <input type="password" name="password" id="password" class="form-control input-sm chat-input" required="required" placeholder="password" />
@@ -57,7 +57,7 @@
                                     <br/>
                                     <div class="wrapper">
                                         <span class="group-btn">
-                                        <button type="button" class="btn btn-primary btn-md" onclick="parent.location='/'" style="margin-right: 20px"> Back </button>
+                                        <button type="button" class="btn btn-primary btn-md" id="backButton" style="margin-right: 20px"> Back </button>
                                         <button type="submit" class="btn btn-primary btn-md">Register </button>
                                     </span>
                                     </div>
@@ -74,13 +74,14 @@
                             <div>
                                 <div class="basic-form">
                                     <form method="POST" action="/login" id="loginForm">
+                                        <h3>Log in</h3>
                                         <input type="text" name="username" id="userName" class="form-control input-sm chat-input" placeholder="username" />
                                         </br>
                                         <input type="password" name="password" id="userPassword" class="form-control input-sm chat-input" placeholder="password" />
                                         </br>
                                         <div class="wrapper">
                                             <span class="group-btn">
-                                              <a class="btn btn-primary btn-md" href="/register" style="margin-right: 15px">Register</a>
+                                              <a class="btn btn-primary btn-md" id="registerButton" style="margin-right: 15px">Register</a>
                                               <button type="submit" class="btn btn-primary btn-md" >Login <i class="fas fa-sign-in-alt"></i></button>
                                             </span>
                                         </div>

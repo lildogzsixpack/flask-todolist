@@ -1,19 +1,29 @@
 $( document ).ready( function() {
     $( "#getstarted" ).click( function() {
-        $( "#registerForm" ).toggle( 'slow' );
-        $("#getstarted").toggle('slow')
+        $( "#registerForm" ).show( 'slow' , 'swing');
+        $("#getstarted").hide('slow' , 'swing');
+        $( "#loginForm" ).hide( 'slow' , 'swing');
     });
 });
 $( document ).ready( function() {
-    $( "#upperRegister" ).click( function() {
-        $( "#registerForm" ).toggle( 'slow' );
-        $("#getstarted").toggle('slow')
+    $( "#registerButton" ).click( function() {
+        $( "#registerForm" ).show( 'slow' , 'swing');
+        $("#getstarted").hide('slow' , 'swing');
+        $( "#loginForm" ).hide( 'slow' , 'swing');
     });
 });
 $( document ).ready( function() {
     $( "#upperLogin" ).click( function() {
-        $( "#loginForm" ).toggle( 'slow' );
-        $("#getstarted").toggle('slow')
+        $( "#loginForm" ).show( 'slow' , 'swing' );
+        $("#getstarted").hide('slow' , 'swing');
+        $( "#registerForm" ).hide( 'slow' , 'swing');
+    });
+});
+$( document ).ready( function() {
+    $( "#backButton" ).click( function() {
+        $( "#loginForm" ).hide( 'slow' , 'swing' );
+        $("#getstarted").show('slow' , 'swing');
+        $( "#registerForm" ).hide( 'slow' , 'swing');
     });
 });
 
