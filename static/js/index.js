@@ -1,30 +1,34 @@
 //getstarted register and sign in button toggles
-$( document ).ready( function() {
-    $( "#getstarted" ).click( function() {
-        $( "#registerForm" ).show( 'slow' , 'swing');
-        $("#getstarted").hide('slow' , 'swing');
-        $( "#loginForm" ).hide( 'slow' , 'swing');
+$(document).ready(function() {
+    $("#getstarted").click(function() {
+        $("#registerForm").show('swing');
+        $("#getstarted").hide('swing');
+        $("#loginForm").hide('swing');
+        $("#status-box").hide('swing');
     });
 });
-$( document ).ready( function() {
-    $( "#registerButton" ).click( function() {
-        $( "#registerForm" ).show( 'slow' , 'swing');
-        $("#getstarted").hide('slow' , 'swing');
-        $( "#loginForm" ).hide( 'slow' , 'swing');
+$(document).ready(function() {
+    $("#registerButton").click(function() {
+        $("#registerForm").show('swing');
+        $("#getstarted").hide('swing');
+        $("#loginForm").hide('swing');
+        $("#status-box").hide('swing');
     });
 });
-$( document ).ready( function() {
-    $( "#upperLogin" ).click( function() {
-        $( "#loginForm" ).show( 'slow' , 'swing' );
-        $("#getstarted").hide('slow' , 'swing');
-        $( "#registerForm" ).hide( 'slow' , 'swing');
+$(document).ready(function() {
+    $("#upperLogin").click(function() {
+        $("#loginForm").show('swing');
+        $("#getstarted").hide('swing');
+        $("#registerForm").hide('swing');
+        $("#status-box").hide('swing');
     });
 });
-$( document ).ready( function() {
-    $( "#backButton" ).click( function() {
-        $( "#loginForm" ).hide( 'slow' , 'swing' );
-        $("#getstarted").show('slow' , 'swing');
-        $( "#registerForm" ).hide( 'slow' , 'swing');
+$(document).ready(function() {
+    $("#backButton").click(function() {
+        $("#loginForm").hide('swing');
+        $("#getstarted").show('swing');
+        $("#registerForm").hide('swing');
+        $("#status-box").hide('swing');
     });
 });
 //about and contact nav buttons
@@ -40,7 +44,7 @@ $("#contactButton").click(function() {
 });
 
 // register js
-$('#registerForm').on('submit', function (e) {
+$('#registerForm').on('submit', function(e) {
     e.preventDefault();
 
     var form = $(this);
@@ -52,32 +56,27 @@ $('#registerForm').on('submit', function (e) {
     if (formData.username.length < 3) {
         errorMessage("username must be at least 3 characters");
         return false;
-    }
-    else if (formData.password.length < 8) {
+    } else if (formData.password.length < 8) {
         errorMessage("Password must be at least 8 characters");
         return false;
-    }
-
-    else if (formData.password !== formData.passwordrepeat) {
+    } else if (formData.password !== formData.passwordrepeat) {
         errorMessage("Passwords do not match");
         return false;
-    }
-    else if (formData.name.length < 3) {
+    } else if (formData.name.length < 3) {
         errorMessage("Name must be at least 3 characters");
         return false;
     }
 
     var request = $.ajax({
-                        url: form.attr('action'),
-                        method: form.attr('method'),
-                        data: form.serialize(),
-                        dataType: "json"
-                    });
-    request.done(function (response) {
+        url: form.attr('action'),
+        method: form.attr('method'),
+        data: form.serialize(),
+        dataType: "json"
+    });
+    request.done(function(response) {
         if (response['success']) {
             window.location.href = "/login#success";
-        }
-        else {
+        } else {
             errorMessage(response['reason']);
         }
     });
@@ -85,7 +84,7 @@ $('#registerForm').on('submit', function (e) {
 // register js ends here
 
 // login js
-$(document).ready(function () {
+$(document).ready(function() {
     var register_param = window.location.hash;
     var statusBox = $("#status-box");
 
@@ -102,30 +101,28 @@ $("#loginForm").on('submit', function(e) {
 
     var form = $(this);
     var formData = {};
-    $.each(form.serializeArray(),function(i,field) {
+    $.each(form.serializeArray(), function(i, field) {
         formData[field.name] = field.value.trim();
     });
 
-    if (formData.username == "" || formData.username == null || formData.password == "" || formData.password == null){
+    if (formData.username == "" || formData.username == null || formData.password == "" || formData.password == null) {
         errorMessage("Please enter your Username and your Password");
         return;
     }
 
-   var request = $.ajax({
-                    url: form.attr('action'),
-                    method: form.attr('method'),
-                    data: form.serialize(),
-                    datatype: "json"
-                });
+    var request = $.ajax({
+        url: form.attr('action'),
+        method: form.attr('method'),
+        data: form.serialize(),
+        datatype: "json"
+    });
 
     request.done(function(response) {
         if (response['success']) {
             window.location.href = "/todolist";
-        }
-        else {
+        } else {
             errorMessage(response['reason']);
         }
     });
-
 });
 // login js ends here
