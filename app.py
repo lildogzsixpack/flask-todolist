@@ -76,7 +76,7 @@ def is_not_duplicate_info():
         return {"success": False, "reason": "Username is already taken"}
     # elif response[1] == request.form["name"]:
     #     return {"success": False, "reason": "Name is already taken"}
-    elif response[2] == request.form["email"]:
+    elif response[1] == request.form["email"]:
         return {"success": False, "reason": "Email is already taken"}
     else:
         return {"success": False, "reason": "Unknown error occured"}
