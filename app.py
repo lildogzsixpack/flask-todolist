@@ -156,19 +156,49 @@ def todolist():
     inbox = []
     wip = []
     done = []
+    task_data = {}
+
     cursor = g.db.execute(
         'SELECT * FROM tasks where user_id = (?)', [session['user_id']])
     tasks = cursor.fetchall()
     for task in tasks:
-        if task[2] == "0":
-            inbox.append(task)
-        elif task[2] == "1":
-            wip.append(task)
-        elif task[2] == "2":
-            done.append(task)
+        if task[2] == 0:
+            task_data = {}
+            task_data["task_id"]= task[0]
+            task_data["title"] = task[1]
+            task_data["column"] = task[2]
+            task_data["user_id"] = task[3]
+            inbox.append(task_data)
+        elif task[2] == 1:
+            task_data = {}
+            task_data["task_id"]= task[0]
+            task_data["title"] = task[1]
+            task_data["column"] = task[2]
+            task_data["user_id"] = task[3]
+            wip.append(task_data)
+        elif task[2] == 2:
+            task_data = {}
+            task_data["task_id"]= task[0]
+            task_data["title"] = task[1]
+            task_data["column"] = task[2]
+            task_data["user_id"] = task[3]
+            done.append(task_data)
 
-    return render_template('todolist.html', profile_name=session['name'], inbox=inbox, wip=wip, done=done)
+    return render_template('todolist.html', profile_name=session['name'], inbox=reversed(inbox), wip=reversed(wip), done=reversed(done))
 
+@app.route('/add_task', methods=['POST'])
+@login_required
+def add_task():
+    task_data = {
+        "title": request.form['title'],
+        "column": 0,
+        "user_id": session['user_id']
+    }
+    cursor = g.db.execute('INSERT INTO tasks (title, column, user_id) VALUES (?, ?, ?)', [
+                          task_data['title'], task_data['column'], task_data['user_id']])
+    g.db.commit()
+    # return redirect(url_for('todolist', profile_name=session['name']))
+    return render_template('todolist.html', profile_name=session['name'])
 
 @app.route('/changepassword', methods=['GET', 'POST'])
 @login_required
@@ -204,26 +234,10 @@ def changepassword():
     else:
         return render_template('changepassword.html', profile_name=session['name'])
 
-
-@app.route('/add_task', methods=['POST'])
-@login_required
-def add_task():
-    task_data = {
-        "title": request.form['title'],
-        "column": "0",
-        "user_id": session['user_id']
-    }
-    cursor = g.db.execute('INSERT INTO tasks (title, column, user_id) VALUES (?, ?, ?)', [
-                          task_data['title'], task_data['column'], task_data['user_id']])
-    g.db.commit()
-    return redirect(url_for('todolist', profile_name=session['name']))
-
-
 @app.route('/edit_task', methods=['GET', 'POST'])
 @login_required
 def edit_task():
     pass
-
 
 @app.route('/delete_task', methods=['POST'])
 @login_required
