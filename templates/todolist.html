@@ -4,34 +4,34 @@
         display: inline-block;
     }
 </style>
-
 <div class="container">
     <form action="{{ url_for('add_task') }}" method="POST" id="addTask">
-        <input type="text" name="title" class="form-control input-sm chat-input" placeholder="Describe your new task" required><br>
+        <input type="text" id="new-todo-item" name="title" class="form-control input-sm chat-input" placeholder="Describe your new task" required><br>
         <input type="submit" id="addBtn" value="Add a New Task" class="btn btn-primary btn-md col-md-offset-5">
     </form>
 </div>
 <br>
 <div class="container">
     <div class="container well col-md-4">
-        <h4>To Do</h4><br>
+        <h4>To Do</h4>
         <div class="container">
             {% for task in inbox %}
             <form action="{{ url_for('edit_task') }}" method="POST" class="form-tasks">
-                <div id="newTask">{{ task["title"] }}</div>
+                <div>{{ task["title"] }}</div>
                 <input type="submit" value="Edit" class="btn td" name="edit_task">
                 <input type="hidden" value="{{ task["task_id"] }}" name="task_to_delete">
             </form>
             <form action="{{ url_for('delete_task') }}" method="POST" class="form-tasks">
-                <input type="submit" value="Delete" class="btn td" name="delete_task">
+                <input type="submit"  id="delete_task" value="Delete" class="btn td" name="delete_task">
                 <input type="hidden" value="{{ task["task_id"] }}" name="task_to_delete">
             </form>
             <select>
-        <option>To Do</option>
-        <option>WIP</option>
-        <option>Done</option>
-      </select><br>
+                <option>To Do</option>
+                <option>WIP</option>
+                <option>Done</option>
+            </select><br>
             {% endfor %}
+            <div id="newTask"></div><br>
         </div>
     </div>
     <div class="container well col-md-4">
@@ -39,7 +39,7 @@
         <div class="container">
             {% for task in wip %}
             <form action="{{ url_for('edit_task') }}" method="POST" class="form-tasks">
-                <div id="newTask">{{ task["title"] }}</div>
+                <div>{{ task["title"] }}</div>
                 <input type="submit" value="Edit" class="btn td" name="edit_task">
                 <input type="hidden" value="{{ task["task_id"] }}" name="task_to_delete">
             </form>
@@ -48,10 +48,10 @@
                 <input type="hidden" value="{{ task["task_id"] }}" name="task_to_delete">
             </form>
             <select>
-        <option>To Do</option>
-        <option>WIP</option>
-        <option>Done</option>
-      </select><br>
+                <option>To Do</option>
+                <option>WIP</option>
+                <option>Done</option>
+            </select><br>
             {% endfor %}
         </div>
     </div>
@@ -60,7 +60,7 @@
         <div class="container">
             {% for task in done %}
             <form action="{{ url_for('edit_task') }}" method="POST" class="form-tasks">
-                <div id="newTask">{{ task["title"] }}</div>
+                <div>{{ task["title"] }}</div>
                 <input type="submit" value="Edit" class="btn td" name="edit_task">
                 <input type="hidden" value="{{ task["task_id"] }}" name="task_to_delete">
             </form>
@@ -69,16 +69,15 @@
                 <input type="hidden" value="{{ task["task_id"] }}" name="task_to_delete">
             </form>
             <select>
-        <option>To Do</option>
-        <option>WIP</option>
-        <option>Done</option>
-      </select><br>
+                <option>To Do</option>
+                <option>WIP</option>
+                <option>Done</option>
+            </select><br>
             {% endfor %}
         </div>
     </div>
 </div>
-
 {% endblock %} {% block jsfiles %} {{ super() }}
-<!-- <script src="/static/js/todolist.js"></script> -->
 <script src="/static/js/custom.js"></script>
+<script src="/static/js/todolist.js"></script>
 {% endblock %}
