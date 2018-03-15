@@ -9,7 +9,7 @@ $('#addTask').on('submit', function(e) {
         formData[field.name] = field.value;
     });
 
-    var request = $.ajax({
+    $.ajax({
         url: form.attr('action'),
         method: form.attr('method'),
         data: form.serialize(),
@@ -39,4 +39,17 @@ $('#addTask').on('submit', function(e) {
         $("#newTask").append(node);
         $("#new-todo-item").val("");
     }
+});
+
+$("#deleteTask").on('submit',function (e) {
+    e.preventDefault();
+
+    $.ajax({
+        url: "/delete_task",
+        method:"POST",
+        dataType: "json",
+        success: function () {
+            $(this).parent().remove();
+        }
+    });
 });

@@ -247,10 +247,16 @@ def edit_task():
 @app.route('/delete_task', methods=['POST'])
 @login_required
 def delete_task():
-    cursor = g.db.execute('DELETE FROM tasks WHERE task_id = (?)', [
-                          request.form["task_to_delete"]])
-    g.db.commit()
-    return redirect(url_for('todolist', profile_name=session['name']))
+    if request.method == 'POST':
+        cursor = g.db.execute('DELETE FROM tasks WHERE task_id = (?)', [
+                              request.form["task_to_delete"]])
+        g.db.commit()
+        if cursor.rowcount != 1:
+            return jsonify({"success": False, "reason": "An unknown error occured"})
+        else:
+            return jsonify({"success": True})
+    else:
+        return render_template('todolist.html', profile_name=session['name'])
 
 
 @app.route('/favicon.ico')
