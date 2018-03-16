@@ -6,22 +6,22 @@
 </style>
 <div class="container">
     <form action="/add_task" method="POST" id="addTask">
-        <input type="text" id="new-todo-item" name="title" class="form-control input-sm chat-input" placeholder="Describe your new task" required><br>
+        <input type="text" id="newTodo" name="title" class="form-control input-sm chat-input" placeholder="Describe your new task" required><br>
         <input type="submit" id="addBtn" value="Add a New Task" class="btn btn-primary btn-md col-md-offset-5">
     </form>
 </div>
 <br>
 <div class="container">
     <div class="well col-md-4">
-        <h4>To Do</h4>
-            {% for task in inbox %}
-            <form action="{{ url_for('edit_task') }}" method="POST" class="form-tasks">
+        <h4>To Do</h4> {% for task in inbox %}
+        <div class="container">
+            <form action="{{ url_for('edit_task') }}" method="POST" class="form-tasks" id="editTask">
                 <div>{{ task["title"] }}</div>
                 <input type="submit" value="Edit" class="btn td" name="edit_task">
-                <input type="hidden" value="{{ task['task_id'] }}" name="task_to_delete">
+                <input type="hidden" value="{{ task['task_id'] }}" name="task_to_edit">
             </form>
-            <form action="/delete_task" method="POST" class="form-tasks">
-                <input type="submit"  id="deleteTask" value="Delete" class="btn td" name="delete_task">
+            <form action="/delete_task" method="POST" class="form-tasks" id="deleteTask">
+                <input type="submit" value="Delete" class="btn td" name="delete_task">
                 <input type="hidden" value="{{ task['task_id'] }}" name="task_to_delete">
             </form>
             <select>
@@ -29,20 +29,20 @@
                 <option>WIP</option>
                 <option>Done</option>
             </select><br>
-            {% endfor %}
-            <div id="newTask"></div><br>
+        </div>
+        {% endfor %}
+        <div id="newTask"></div><br>
     </div>
     <div class="container well col-md-4">
-        <h4>WIP</h4><br>
+        <h4>WIP</h4><br> {% for task in wip %}
         <div class="container">
-            {% for task in wip %}
             <form action="{{ url_for('edit_task') }}" method="POST" class="form-tasks">
                 <div>{{ task["title"] }}</div>
                 <input type="submit" value="Edit" class="btn td" name="edit_task">
-                <input type="hidden" value="{{ task['task_id'] }}" name="task_to_delete">
+                <input type="hidden" value="{{ task['task_id'] }}" name="task_to_edit">
             </form>
-            <form action="/delete_task" method="POST" class="form-tasks">
-                <input type="submit"  id="deleteTask" value="Delete" class="btn td" name="delete_task">
+            <form action="/delete_task" method="POST" class="form-tasks" id="deleteTask">
+                <input type="submit" value="Delete" class="btn td" name="delete_task">
                 <input type="hidden" value="{{ task['task_id'] }}" name="task_to_delete">
             </form>
             <select>
@@ -50,20 +50,18 @@
                 <option>WIP</option>
                 <option>Done</option>
             </select><br>
-            {% endfor %}
-        </div>
+        </div> {% endfor %}
     </div>
     <div class="container well col-md-4">
-        <h4>Done</h4><br>
+        <h4>Done</h4><br> {% for task in done %}
         <div class="container">
-            {% for task in done %}
             <form action="{{ url_for('edit_task') }}" method="POST" class="form-tasks">
                 <div>{{ task["title"] }}</div>
                 <input type="submit" value="Edit" class="btn td" name="edit_task">
-                <input type="hidden" value="{{ task['task_id'] }}" name="task_to_delete">
+                <input type="hidden" value="{{ task['task_id'] }}" name="task_to_edit">
             </form>
-            <form action="/delete_task" method="POST" class="form-tasks">
-                <input type="submit"  id="deleteTask" value="Delete" class="btn td" name="delete_task">
+            <form action="/delete_task" method="POST" class="form-tasks" id="deleteTask">
+                <input type="submit" value="Delete" class="btn td" name="delete_task">
                 <input type="hidden" value="{{ task['task_id'] }}" name="task_to_delete">
             </form>
             <select>
@@ -71,8 +69,7 @@
                 <option>WIP</option>
                 <option>Done</option>
             </select><br>
-            {% endfor %}
-        </div>
+        </div> {% endfor %}
     </div>
 </div>
 {% endblock %} {% block jsfiles %} {{ super() }}

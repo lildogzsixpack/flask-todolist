@@ -20,12 +20,14 @@ $('#addTask').on('submit', function(e) {
     function addTodoItem() {
         var node = [
             '<div class="container">',
-            '<form action="/edit_task" method="POST" class="form-tasks">',
+            '<form action="/edit_task" method="POST" class="form-tasks" id="editTask">',
             '<div>' + formData['title'] + '</div>',
             '<input type="submit" value="Edit" class="btn td" name="edit_task">',
+            '<input type="hidden" value="{{ task["task_id"] }}" name="task_to_edit">',
             '</form>',
-            '<form class="form-tasks">',
-            '<input type="submit"  id="delete_task" value="Delete" class="btn td" name="delete_task">',
+            '<form action="/delete_task" method="POST" class="form-tasks" id="deleteTask">',
+            '<input type="submit" value="Delete" class="btn td" name="delete_task">',
+            '<input type="hidden" value="{{ task["task_id"] }}" name="task_to_delete">',
             '</form>',
             '<select>',
             '<option>To Do</option>',
@@ -35,21 +37,23 @@ $('#addTask').on('submit', function(e) {
             '</div>'
         ].join('');
 
-        var todoItem = $("#new-todo-item");
+        var todoItem = $("#newTodo");
         $("#newTask").append(node);
-        $("#new-todo-item").val("");
+        $("#newTodo").val("");
     }
 });
 
-$("#deleteTask").on('submit',function (e) {
+$("#deleteTask").on('submit', function(e) {
     e.preventDefault();
+    var form = $(this);
 
     $.ajax({
-        url: "/delete_task",
-        method:"POST",
+        url: form.attr('action'),
+        method: form.attr('method'),
+        data: form.serialize(),
         dataType: "json",
-        success: function () {
-            $(this).parent().remove();
+        success: function() {
+            form.parent().remove();
         }
     });
 });
