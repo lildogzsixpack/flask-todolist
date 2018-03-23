@@ -20,7 +20,7 @@
                 <input type="submit" value="Edit" class="btn td" name="edit_task">
                 <input type="hidden" value="{{ task['task_id'] }}" name="task_to_edit">
             </form>
-            <form action="/delete_task" method="POST" class="form-tasks" id="deleteTask">
+            <form action="/delete_task" method="POST" class="form-tasks delete">
                 <input type="submit" value="Delete" class="btn td" name="delete_task">
                 <input type="hidden" value="{{ task['task_id'] }}" name="task_to_delete">
             </form>
@@ -31,7 +31,7 @@
             </select><br>
         </div>
         {% endfor %}
-        <div id="newTask"></div><br>
+        <span id="newTask"></span><br>
     </div>
     <div class="container well col-md-4">
         <h4>WIP</h4><br> {% for task in wip %}
@@ -41,7 +41,7 @@
                 <input type="submit" value="Edit" class="btn td" name="edit_task">
                 <input type="hidden" value="{{ task['task_id'] }}" name="task_to_edit">
             </form>
-            <form action="/delete_task" method="POST" class="form-tasks" id="deleteTask">
+            <form action="/delete_task" method="POST" class="form-tasks delete">
                 <input type="submit" value="Delete" class="btn td" name="delete_task">
                 <input type="hidden" value="{{ task['task_id'] }}" name="task_to_delete">
             </form>
@@ -60,7 +60,7 @@
                 <input type="submit" value="Edit" class="btn td" name="edit_task">
                 <input type="hidden" value="{{ task['task_id'] }}" name="task_to_edit">
             </form>
-            <form action="/delete_task" method="POST" class="form-tasks" id="deleteTask">
+            <form action="/delete_task" method="POST" class="form-tasks delete">
                 <input type="submit" value="Delete" class="btn td" name="delete_task">
                 <input type="hidden" value="{{ task['task_id'] }}" name="task_to_delete">
             </form>

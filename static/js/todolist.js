@@ -25,7 +25,7 @@ $('#addTask').on('submit', function(e) {
             '<input type="submit" value="Edit" class="btn td" name="edit_task">',
             '<input type="hidden" value="{{ task["task_id"] }}" name="task_to_edit">',
             '</form>',
-            '<form action="/delete_task" method="POST" class="form-tasks" id="deleteTask">',
+            '<form action="/delete_task" method="POST" class="form-tasks delete">',
             '<input type="submit" value="Delete" class="btn td" name="delete_task">',
             '<input type="hidden" value="{{ task["task_id"] }}" name="task_to_delete">',
             '</form>',
@@ -43,7 +43,7 @@ $('#addTask').on('submit', function(e) {
     }
 });
 
-$("#deleteTask").on('submit', function(e) {
+$(".delete").on('submit', function(e) {
     e.preventDefault();
     var form = $(this);
 
