@@ -55,10 +55,12 @@ a:visited {
 
 #loginform {
     display: none;
+    margin-right: 85px;
 }
 
 #registerform {
     display: none;
+    margin-right: 85px;
 }
 
 .form-control {
@@ -81,4 +83,7 @@ a:visited {
 
 .btn-md {
     background-color: inherit;
+}
+#getstarted{
+    margin-right: 85px;
 }
