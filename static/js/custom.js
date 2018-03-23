@@ -7,4 +7,5 @@ function errorMessage(text) {
     });
     statusBox.append(text);
     statusBox.show();
+    statusBox.css('visibility', 'visible');
 }

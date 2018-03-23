@@ -1,0 +1,121 @@
+{% extends "base.html" %} {% block title %} Todo List App {% endblock %} {{ super() }}
+{% block content %}
+<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+<link rel="stylesheet" href="/static/css/index.css" />
+
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+              </button>
+            <a class="navbar-brand" href="/">Todo-List</a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li><a role="button" id="aboutButton">About</a></li>
+                <li><a role="button" id="contactButton">Contact</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a role="button" id="upperLogin">Sign In <i class="fas fa-user"></i></a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+            <div id="content">
+                <h1> Welcome to the Todo-List App </h1>
+                <p>
+                    Welcome to Todo-List app. You can organise your daily tasks with ease and make the world a better <strong>place</strong>.
+                </p>
+                <hr>
+                <div class="container container col-lg-offset-5 col-lg-3 col-md-offset-4 col-md-3 col-sm-offset-3 col-sm-4 col-xs-offset-3 col-xs-7">
+                    <button class="btn btn-default btn-lg" id="getstarted"><i class="fas fa-pencil-alt" ></i>Get Started!</button>
+                    <!-- register Form -->
+                    <div class="row">
+                        <div id="status-box">
+                            alert box
+                        </div>
+                        <div class="basic-form">
+                            <form method="POST" action="/register" name="registerForm" id="registerForm">
+                                <h3>Fill this form to create a new account</h3>
+                                <input type="text" name="username" id="userName" class="form-control input-sm chat-input" required="required" placeholder="username" />
+                                <br/>
+                                <input type="password" name="password" id="password" class="form-control input-sm chat-input" required="required" placeholder="password" />
+                                <br/>
+                                <input type="password" name="passwordrepeat" id="passwordrepeat" class="form-control input-sm chat-input" required="required" placeholder="repeat password" />
+                                <br/>
+                                <input type="text" name="name" id="name" class="form-control input-sm chat-input" required="required" placeholder="name" />
+                                <br/>
+                                <input type="email" name="email" id="email" class="form-control input-sm chat-input" required="required" placeholder="myemail@company.com" />
+                                <br/>
+                                <div class="wrapper">
+                                    <span class="group-btn">
+                                        <button type="button" class="btn btn-primary btn-md" id="backButton" style="margin-right: 20px"> Back </button>
+                                        <button type="submit" class="btn btn-primary btn-md">Register </button>
+                                    </span>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <!-- login Form -->
+                <div class="container container col-lg-offset-5 col-lg-3 col-md-offset-4 col-md-3 col-sm-offset-3 col-sm-4 col-xs-offset-3 col-xs-7">
+                    <div class="row">
+                        <div id="status-box">
+                            alert box
+                        </div>
+                        <div>
+                            <div class="basic-form">
+                                <form method="POST" action="/login" id="loginForm">
+                                    <h3>Log in</h3>
+                                    <input type="text" name="username" id="userName" class="form-control input-sm chat-input" placeholder="username" />
+                                    </br>
+                                    <input type="password" name="password" id="userPassword" class="form-control input-sm chat-input" placeholder="password" />
+                                    </br>
+                                    <div class="wrapper">
+                                        <span class="group-btn">
+                                              <a class="btn btn-primary btn-md" id="registerButton" style="margin-right: 15px">Register</a>
+                                              <button type="submit" class="btn btn-primary btn-md" >Login <i class="fas fa-sign-in-alt"></i></button>
+                                            </span>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- information tabs-->
+<div class="container info">
+    <div class='row text-center features'>
+        <div class='col-sm-4 col-xs-10 col-xs-offset-1 col-sm-offset-0'>
+            <i class="fas fa-list-ul"></i>
+            <h3>Organise</h3>
+            <p>Organise and keep track of the stuff you want to do with the Todo-List App !</p>
+        </div>
+
+        <div class='col-sm-4 col-xs-6' id="aboutInfo">
+            <i class="fab fa-python"></i>
+            <h3>About</h3>
+            <p>This app is made in python Flask for learning purposes and it is a work in progress. Github link <a href="https://github.com/lildogzsixpack/flask-todolist"><i class="fab fa-github"></i></a></p>
+        </div>
+
+        <div class='col-sm-4 col-xs-6' id="contactInfo">
+            <i class="fas fa-address-card"></i>
+            <h3>Contact</h3>
+            <p>Contact information goes here.</p>
+        </div>
+
+    </div>
+</div>
+<script type="text/javascript" src="/static/js/index.js"></script>
+{% endblock %}
