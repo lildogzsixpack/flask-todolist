@@ -32,7 +32,6 @@ def before_request():
     session.modified = True
 
 
-
 @app.route('/motivation', methods=['GET'])
 def motivation():
     return '<center><iframe width="560" height="315" src="https://www.youtube.com/embed/3ugZUq9nm4Y" frameborder="0" allowfullscreen></iframe></center>'
@@ -150,7 +149,7 @@ def logout():
     return redirect(url_for('index'))
 
 
-@app.route('/todolist', methods=['GET', 'POST'])
+@app.route('/todolist', methods=['GET'])
 @login_required
 def todolist():
     inbox = []
@@ -164,21 +163,21 @@ def todolist():
     for task in tasks:
         if task[2] == 0:
             task_data = {}
-            task_data["task_id"]= task[0]
+            task_data["task_id"] = task[0]
             task_data["title"] = task[1]
             task_data["column"] = task[2]
             task_data["user_id"] = task[3]
             inbox.append(task_data)
         elif task[2] == 1:
             task_data = {}
-            task_data["task_id"]= task[0]
+            task_data["task_id"] = task[0]
             task_data["title"] = task[1]
             task_data["column"] = task[2]
             task_data["user_id"] = task[3]
             wip.append(task_data)
         elif task[2] == 2:
             task_data = {}
-            task_data["task_id"]= task[0]
+            task_data["task_id"] = task[0]
             task_data["title"] = task[1]
             task_data["column"] = task[2]
             task_data["user_id"] = task[3]
@@ -186,24 +185,23 @@ def todolist():
 
     return render_template('todolist.html', profile_name=session['name'], inbox=inbox, wip=wip, done=done)
 
+
 @app.route('/add_task', methods=['POST'])
 @login_required
 def add_task():
-    if request.method == 'POST':
-        task_data = {
-            "title": request.form['title'],
-            "column": 0,
-            "user_id": session['user_id']
-        }
-        cursor = g.db.execute('INSERT INTO tasks (title, column, user_id) VALUES (?, ?, ?)', [
-                              task_data['title'], task_data['column'], task_data['user_id']])
-        g.db.commit()
-        if cursor.rowcount != 1:
-            return jsonify({"success": False, "reason": "An unknown error occured"})
-        else:
-            return jsonify({"success": True})
+    task_data = {
+        "title": request.form['title'],
+        "column": 0,
+        "user_id": session['user_id']
+    }
+    cursor = g.db.execute('INSERT INTO tasks (title, column, user_id) VALUES (?, ?, ?)', [
+                          task_data['title'], task_data['column'], task_data['user_id']])
+    g.db.commit()
+    if cursor.rowcount != 1:
+        return jsonify({"success": False, "reason": "An unknown error occured"})
     else:
-        return render_template('todolist.html', profile_name=session['name'])
+        return jsonify({"success": True, "id": cursor.lastrowid})
+
 
 @app.route('/changepassword', methods=['GET', 'POST'])
 @login_required
@@ -239,10 +237,12 @@ def changepassword():
     else:
         return render_template('changepassword.html', profile_name=session['name'])
 
+
 @app.route('/edit_task', methods=['GET', 'POST'])
 @login_required
 def edit_task():
     pass
+
 
 @app.route('/delete_task', methods=['POST'])
 @login_required
@@ -254,7 +254,6 @@ def delete_task():
         return jsonify({"success": False, "reason": "An unknown error occured"})
     else:
         return jsonify({"success": True})
-
 
 
 @app.route('/favicon.ico')
