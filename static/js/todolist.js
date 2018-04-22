@@ -4,7 +4,6 @@ $('#addTask').on('submit', function(e) {
     var form = $(this);
     var formData = {};
 
-
     $.each(form.serializeArray(), function(i, field) {
         formData[field.name] = field.value;
     });
@@ -17,24 +16,24 @@ $('#addTask').on('submit', function(e) {
         success: addTodoItem
     });
 
-    function addTodoItem() {
+    function addTodoItem(data) {
         var node = [
-            '<div class="container">',
-            '<form action="/edit_task" method="POST" class="form-tasks" id="editTask">',
-            '<div>' + formData['title'] + '</div>',
-            '<input type="submit" value="Edit" class="btn td" name="edit_task">',
-            '<input type="hidden" value="{{ task["task_id"] }}" name="task_to_edit">',
-            '</form>',
-            '<form action="/delete_task" method="POST" class="form-tasks delete">',
-            '<input type="submit" value="Delete" class="btn td" name="delete_task">',
-            '<input type="hidden" value="{{ task["task_id"] }}" name="task_to_delete">',
-            '</form>',
-            '<select>',
-            '<option>To Do</option>',
-            '<option>WIP</option>',
-            '<option>Done</option>',
-            '</select>',
-            '</div>'
+            `<div class="container">`,
+            `<form action="/edit_task" method="POST" class="form-tasks" id="editTask">`,
+            `<div>  ${formData['title']}  </div>`,
+            `<input type="submit" value="Edit" class="btn td" name="editTask">`,
+            `<input type="hidden" value="${data.id}" name="task_to_edit">`,
+            `</form>`,
+            `<form action="/delete_task" method="POST" class="form-tasks delete">`,
+            `<input type="submit" value="Delete" class="btn td" name="deleteTask">`,
+            `<input type="hidden" value="${data.id}" name="task_to_delete">`,
+            `</form>`,
+            `<select>`,
+            `<option>To Do</option>`,
+            `<option>WIP</option>`,
+            `<option>Done</option>`,
+            `</select>`,
+            `</div>`
         ].join('');
 
         var todoItem = $("#newTodo");
@@ -43,7 +42,8 @@ $('#addTask').on('submit', function(e) {
     }
 });
 
-$(".delete").on('submit', function(e) {
+$(document).on('click','.delete',function(e) {
+
     e.preventDefault();
     var form = $(this);
 
