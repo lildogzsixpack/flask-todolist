@@ -18,9 +18,9 @@ $('#addTask').on('submit', function(e) {
 
     function addTodoItem(data) {
         var node = [
-            `<div class="container">`,
-            `<form action="/edit_task" method="POST" class="form-tasks" id="editTask">`,
-            `<div>  ${formData['title']}  </div>`,
+            `<div class="container col-md-12 card dragable-object">`,
+            `<form action="/edit_task" method="POST" class="form-tasks">`,
+            `<div>${formData['title']}</div>`,
             `<input type="submit" value="Edit" class="btn td" name="editTask">`,
             `<input type="hidden" value="${data.id}" name="task_to_edit">`,
             `</form>`,
@@ -28,11 +28,6 @@ $('#addTask').on('submit', function(e) {
             `<input type="submit" value="Delete" class="btn td" name="deleteTask">`,
             `<input type="hidden" value="${data.id}" name="task_to_delete">`,
             `</form>`,
-            `<select>`,
-            `<option>To Do</option>`,
-            `<option>WIP</option>`,
-            `<option>Done</option>`,
-            `</select>`,
             `</div>`
         ].join('');
 
@@ -56,4 +51,20 @@ $(document).on('click','.delete',function(e) {
             form.parent().remove();
         }
     });
+});
+
+// drag and drop jquery-ui
+$(function() {
+  $(".dragable-object").draggable({
+    revert: "invalid",
+  });
+
+  $(".position").droppable({
+    accept: "div",
+    tolerance: "touch",
+    drop: function(e, ui) {
+      ui.draggable.attr("style", "");
+      $(this).append(ui.draggable);
+    }
+  });
 });
