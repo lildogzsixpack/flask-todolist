@@ -1,4 +1,5 @@
-$('#addTask').on('submit', function(e) {
+// adding tasks
+$(document).on( "submit", "#addTask", function(e, drag){
     e.preventDefault();
 
     var form = $(this);
@@ -17,6 +18,20 @@ $('#addTask').on('submit', function(e) {
     });
 
     function addTodoItem(data) {
+        $(function() {
+          $(".dragable-object").draggable({
+            revert: "invalid",
+          });
+
+          $(".position").droppable({
+            accept: "div",
+            tolerance: "touch",
+            drop: function(e, ui) {
+              ui.draggable.attr("style", "");
+              $(this).append(ui.draggable);
+            }
+          });
+        });
         var node = [
             `<div class="container col-md-12 card dragable-object">`,
             `<form action="/edit_task" method="POST" class="form-tasks">`,
@@ -37,6 +52,23 @@ $('#addTask').on('submit', function(e) {
     }
 });
 
+// drag and drop jquery-ui
+var drag = $(function() {
+  $(".dragable-object").draggable({
+    revert: "invalid",
+  });
+
+  $(".position").droppable({
+    accept: "div",
+    tolerance: "touch",
+    drop: function(e, ui) {
+      ui.draggable.attr("style", "");
+      $(this).append(ui.draggable);
+    }
+  });
+});
+
+// delete button functionality
 $(document).on('click','.delete',function(e) {
 
     e.preventDefault();
@@ -53,18 +85,3 @@ $(document).on('click','.delete',function(e) {
     });
 });
 
-// drag and drop jquery-ui
-$(function() {
-  $(".dragable-object").draggable({
-    revert: "invalid",
-  });
-
-  $(".position").droppable({
-    accept: "div",
-    tolerance: "touch",
-    drop: function(e, ui) {
-      ui.draggable.attr("style", "");
-      $(this).append(ui.draggable);
-    }
-  });
-});
