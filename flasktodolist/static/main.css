@@ -1,0 +1,56 @@
+body {
+  background: #fafafa;
+  color: #333333;
+  margin-top: 6em;
+}
+
+h1, h2{
+	text-align: center;
+	padding-top: 80px;
+}
+
+h4{
+  padding: 10px;
+  }
+
+legend{
+	text-align: center;
+}
+
+.content-section {
+  background: #ffffff;
+  padding: 10px 20px;
+  border: 1px solid #dddddd;
+  border-radius: 3px;
+  margin-top: 1em;
+  padding: 2em;
+}
+
+.card{
+  background-color: white;
+  border: 1px solid black;
+  border-radius: 15px;
+  padding: 10px ;
+  margin: 5px 5px 5px 10px;
+  text-align: center;
+}
+
+div.card input {
+  float: right;
+  margin-bottom: 15px;
+  background:none!important;
+  color:inherit;
+  border:none;
+}
+
+div.card input.delete:hover {
+  color: red;
+}
+
+div.card input.update:hover {
+  color: blue;
+}
+
+.input-group-btn.input-space {
+  padding-left: 15px;
+}
