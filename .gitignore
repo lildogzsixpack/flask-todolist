@@ -40,6 +40,7 @@ wheels/
 # Installer logs
 pip-log.txt
 pip-delete-this-directory.txt
+../pip-selfcheck.json
 
 # Unit test / coverage reports
 htmlcov/
@@ -86,6 +87,10 @@ celerybeat-schedule
 .env
 
 # virtualenv
+../include/
+../lib/
+./
+../bin/
 .venv/
 venv/
 ENV/
