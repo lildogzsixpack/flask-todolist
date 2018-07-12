@@ -1,18 +1,18 @@
 {% extends "layout.html" %}
 
 {% block content %}
-	<form method="POST" action="{{ url_for('add_todo') }}">
+	<form method="POST" action="{{ url_for('add_todo') }}" id="newTodoForm">
 		{{ form.hidden_tag() }}
 		 <div class="input-group">
             {% if form.title.errors %}
-                {{ form.title(class="form-control form-control-lg is-invalid") }}
+                {{ form.title(class="form-control form-control-lg is-invalid todoInput") }}
                 <div class="invalid-feedback">
                     {% for error in form.title.errors %}
                         <span>{{ error }}</span>
                     {% endfor %}
                 </div>
             {% else %}
-                {{ form.title(class="form-control form-control-md col-md-12") }}
+                {{ form.title(class="form-control form-control-md col-md-12 todoInput") }}
             {% endif %}
             <span class="input-group-btn input-space">
                 {{ form.submit(class="btn btn-primary btn-md mr-auto") }}
@@ -20,46 +20,50 @@
        	</div>
 	</form>
     <div class="container-fluid jumbotron mt-4 row">
-	    <div class="col-md-4 col-lg-4">
+	    <div class="col-md-4 col-lg-4 position">
             <h4>To Do</h4>
             {% for todo in inbox %}
-            <div class="card">
+            <div class="card dragable-object">
                 <span class="container"> {{ todo.title }}</span>
-                <form action="{{ url_for('update', todo_id=todo.todo_id) }}" method="GET">
-                    <input class="update" type="submit" value="&#8646;">
+                <form action="{{ url_for('update', todo_id=todo.todo_id) }}" method="GET" class="update">
+                    <input type="submit" value="&#8646;">
                 </form>
-                <form action="{{ url_for('delete', todo_id=todo.todo_id) }}" method="POST">
-                    <input class="delete" type="submit" value="&#10006;">
+                <form action="{{ url_for('delete', todo_id=todo.todo_id) }}" method="POST" class="delete">
+                    <input  type="submit" value="&#10006;">
                 </form> 
             </div>
             {% endfor %}
+            <span id="newTodo"></span><br>
     	</div>
-        <div class="col-md-4 col-lg-4">
+        <div class="col-md-4 col-lg-4 position">
             <h4>WIP</h4>
             {% for todo in wip %}
-            <div class="card">
+            <div class="card dragable-object">
                 <span class="container"> {{ todo.title }}</span>
-                <form action="{{ url_for('update', todo_id=todo.todo_id) }}" method="GET">
-                    <input class="update" type="submit" value="&#8646;">
+                <form action="{{ url_for('update', todo_id=todo.todo_id) }}" method="GET" class="update">
+                    <input type="submit" value="&#8646;">
                 </form>
-                <form action="{{ url_for('delete', todo_id=todo.todo_id) }}" method="POST">
-                    <input class="delete" type="submit" value="&#10006;">
+                <form action="{{ url_for('delete', todo_id=todo.todo_id) }}" method="POST" class="delete">
+                    <input  type="submit" value="&#10006;">
                 </form> 
             </div>
             {% endfor %}
         </div>
-        <div class=" col-md-4 col-lg-4">
+        <div class=" col-md-4 col-lg-4 position">
             <h4>Done</h4>
             {% for todo in done %}
-            <div class="card">
+            <div class="card dragable-object">
                 <span class="container"> {{ todo.title }}</span>
-                <form action="{{ url_for('update', todo_id=todo.todo_id) }}" method="GET">
-                    <input class="update" type="submit" value="&#8646;">
+                <form action="{{ url_for('update', todo_id=todo.todo_id) }}" method="GET" class="update">
+                    <input type="submit" value="&#8646;">
                 </form>
-                <form action="{{ url_for('delete', todo_id=todo.todo_id) }}" method="POST">
-                    <input class="delete" type="submit" value="&#10006;">
+                <form action="{{ url_for('delete', todo_id=todo.todo_id) }}" method="POST" class="delete">
+                    <input  type="submit" value="&#10006;">
                 </form> 
             </div>
             {% endfor %}
         </div>
-{% endblock %}
+{% endblock %} 
+{% block jsfiles %} {{ super() }}
+    <script src="/static/js/todolist.js"></script>
+{% endblock %} 

@@ -1,8 +1,14 @@
 from flasktodolist import app, db, bcrypt
-from flask import render_template, url_for, redirect, flash, request
+from flask import render_template, url_for, redirect, flash, request, jsonify
 from flasktodolist.forms import RegistrationForm, LoginForm, TodolistForm, UpdateForm
 from flasktodolist.models import User, Todo
 from flask_login import login_user, current_user, logout_user, login_required
+from sqlalchemy import engine
+
+
+@app.route('/motivation', methods=['GET'])
+def motivation():
+    return '<center><iframe width="560" height="315" src="https://www.youtube.com/embed/3ugZUq9nm4Y" frameborder="0" allowfullscreen></iframe></center>'
 
 
 @app.route('/')
@@ -90,7 +96,7 @@ def add_todo():
         todo = Todo(title=form.title.data, id=current_user.id)
         db.session.add(todo)
         db.session.commit()
-    return redirect(url_for('todolist'))
+    return jsonify({"success": True, "id": todo.todo_id})
 
 
 @app.route('/delete<int:todo_id>', methods=['POST'])
@@ -99,7 +105,11 @@ def delete(todo_id):
     todo = Todo.query.get_or_404(todo_id)
     db.session.delete(todo)
     db.session.commit()
-    return redirect(url_for('todolist'))
+    # return redirect(url_for('todolist'))
+    # if engine.ResultProxy.rowcount != 1:
+    #     return jsonify({"success": False, "reason": "An unknown error occurred"})
+    # else:
+    return jsonify({"success": True})
 
 
 @app.route('/update<int:todo_id>', methods=['GET', 'POST'])
