@@ -20,22 +20,35 @@ $(document).on( "submit", "#newTodoForm", function(e){
 
     function addTodoItem(data) {
         $(function() {
-          $(".dragable-object").draggable({
-            revert: "invalid",
-          });
+            $(".dragable-object").draggable({
+                revert: "invalid",
+            });
 
-          $(".position").droppable({
+        $(".position").droppable({
             accept: "div",
             tolerance: "touch",
             drop: function(e, ui) {
-              ui.draggable.attr("style", "");
-              $(this).append(ui.draggable);
-            }
-          });
+                ui.draggable.attr("style", "");
+                $(this).append(ui.draggable);
+                var todoId = ui.draggable.attr("data-id")
+                var columnId = $(this).attr("data-column-id")
+                var data = {"columnId": columnId}
+                var stringData = JSON.stringify(data)
+
+            // ajax for drop event
+            $.ajax({
+                url: `/move/${todoId}`,
+                method: "POST",
+                data: stringData,
+                contentType: 'application/json;charset=UTF-8',
+                dataType: "json",
+                    })
+                }
+            });
         });
 
         var node =[
-            `<div class="card dragable-object">`,
+            `<div class="card dragable-object" data-id=${data.id}>`,
             `<span class="container"> ${formData['title']}</span>`,
             `<form action="/update${data.id}" method="GET" class="update">`,
             `<input type="submit" value="&#8646;">`,
@@ -53,16 +66,29 @@ $(document).on( "submit", "#newTodoForm", function(e){
 
 // drag and drop jquery-ui
 $(function drag() {
-  $(".dragable-object").draggable({
-    revert: "invalid",
-  });
+    $(".dragable-object").draggable({
+        revert: "invalid",
+    });
 
-  $(".position").droppable({
-    accept: "div",
-    tolerance: "touch",
-    drop: function(e, ui) {
-      ui.draggable.attr("style", "");
-      $(this).append(ui.draggable);
+    $(".position").droppable({
+        accept: "div",
+        tolerance: "touch",
+        drop: function(e, ui) {
+        ui.draggable.attr("style", "");
+        $(this).append(ui.draggable);
+        var todoId = ui.draggable.attr("data-id")
+        var columnId = $(this).attr("data-column-id")
+        var data = {"columnId": columnId}
+        var stringData = JSON.stringify(data)
+
+        // ajax for drop event
+        $.ajax({
+            url: `/move/${todoId}`,
+            method: "POST",
+            data: stringData,
+            contentType: 'application/json;charset=UTF-8',
+            dataType: "json",
+       })
     }
   });
 });

@@ -105,11 +105,10 @@ def delete(todo_id):
     todo = Todo.query.get_or_404(todo_id)
     db.session.delete(todo)
     db.session.commit()
-    # return redirect(url_for('todolist'))
-    # if engine.ResultProxy.rowcount != 1:
-    #     return jsonify({"success": False, "reason": "An unknown error occurred"})
-    # else:
-    return jsonify({"success": True})
+    if engine.ResultProxy.rowcount != 1:
+        return jsonify({"success": False, "reason": "An unknown error occurred"})
+    else:
+        return jsonify({"success": True})
 
 
 @app.route('/update<int:todo_id>', methods=['GET', 'POST'])
@@ -125,3 +124,15 @@ def update(todo_id):
     elif request.method == 'GET':
         form.title.data == todo.title
     return render_template('update.html', form=form, title='Update Post')
+
+
+@app.route('/move/<int:todo_id>', methods=['POST'])
+@login_required
+def move(todo_id):
+    # form = TodolistForm()
+    data = request.get_json()
+    todo = Todo.query.get_or_404(todo_id)
+    todo.column = data.get("columnId")
+    db.session.commit()
+
+    return jsonify({"success": True})

@@ -20,10 +20,10 @@
        	</div>
 	</form>
     <div class="container-fluid jumbotron mt-4 row">
-	    <div class="col-md-4 col-lg-4 position">
+	    <div class="col-md-4 col-lg-4 position" data-column-id="1">
             <h4>To Do</h4>
             {% for todo in inbox %}
-            <div class="card dragable-object">
+            <div class="card dragable-object" data-id="{{todo.todo_id}}">
                 <span class="container"> {{ todo.title }}</span>
                 <form action="{{ url_for('update', todo_id=todo.todo_id) }}" method="GET" class="update">
                     <input type="submit" value="&#8646;">
@@ -35,10 +35,10 @@
             {% endfor %}
             <span id="newTodo"></span><br>
     	</div>
-        <div class="col-md-4 col-lg-4 position">
+        <div class="col-md-4 col-lg-4 position" data-column-id="2">
             <h4>WIP</h4>
             {% for todo in wip %}
-            <div class="card dragable-object">
+            <div class="card dragable-object" data-id="{{todo.todo_id}}">
                 <span class="container"> {{ todo.title }}</span>
                 <form action="{{ url_for('update', todo_id=todo.todo_id) }}" method="GET" class="update">
                     <input type="submit" value="&#8646;">
@@ -49,10 +49,10 @@
             </div>
             {% endfor %}
         </div>
-        <div class=" col-md-4 col-lg-4 position">
+        <div class=" col-md-4 col-lg-4 position" data-column-id="3">
             <h4>Done</h4>
             {% for todo in done %}
-            <div class="card dragable-object">
+            <div class="card dragable-object" data-id="{{todo.todo_id}}">
                 <span class="container"> {{ todo.title }}</span>
                 <form action="{{ url_for('update', todo_id=todo.todo_id) }}" method="GET" class="update">
                     <input type="submit" value="&#8646;">
