@@ -26,7 +26,7 @@ Then, export a Flask secret key:
 ```shell
 $ export SECRET_KEY="your_secret_key"
 ```
-And run it:
+And then run the application:
 ```shell
 $ python run.py
 ```
