@@ -1,10 +1,5 @@
 # Flask-Todolist
 A python task organiser. You can add,delete and update your tasks and use the drag and drop feature to keep track of your task progress.
-You can find a demo [here](http://35.189.73.150/home) and use the tester credentials:
-
->email: tester@gmail.com
-
->password: tester
 
 ## Requirements:
 - Flask 1.0.2
